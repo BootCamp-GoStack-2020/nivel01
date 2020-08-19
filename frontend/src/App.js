@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
+import './App.css';
+import backgroundImage from './assets/background.jpg';
 
 function App(){
  
@@ -10,6 +12,7 @@ function App(){
   
   setProjects([...projects, `Novo Projeto ${Date.now()}`]);
 
+
   console.log(projects);
   }
   return (
@@ -17,6 +20,7 @@ function App(){
       
       <Header title="Projects"/>
      
+      <img width={900}src={backgroundImage}/>
       <ul>
         {projects.map(project => <li key={project}>{project}</li>)}
       </ul>
