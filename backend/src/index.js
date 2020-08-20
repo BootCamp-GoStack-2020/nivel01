@@ -1,7 +1,5 @@
 const express = require('express');
-
 const cors = require('cors');
-
 const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
@@ -92,7 +90,7 @@ app.use(logRequests);
 app.get('/projects', (request, response)=> {
 
   const { title } = request.query;
-  console.log('Passo [3]       -----');
+//  console.log('Passo [3]       -----');
 
 
   // const { title, owner } = request.query;
