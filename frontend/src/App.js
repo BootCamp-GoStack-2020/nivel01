@@ -19,7 +19,7 @@ function App(){
     api.get('projects').then(response=> {
       setProjects(response.data);
     });
-  }, []);
+  }, [projects]);
 
  async function handleAddProject(){
 
