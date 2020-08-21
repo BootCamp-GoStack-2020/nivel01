@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { View, SafeAreaView, FlatList, Text, StyleSheet, StatusBar } from 'react-native'
+import { View, SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
 
 
 import api from './services/api';
@@ -15,7 +15,20 @@ export default function App(){
     });
   }, []);
 
+async function handleAddProject(){
+  const response = await api.post('projects', {
+    title: `Projeto Mobile em ${Date.now()}`,
+    owner: 'Andre Vianna'
+  });
 
+  const project = response.data;
+
+ setProjects([...projects, project])
+
+
+
+//  setProjects(project => [...projects, project]);
+}
 
   return (
     
@@ -24,36 +37,33 @@ export default function App(){
 
         <SafeAreaView  style={styles.container}>
 
-        <FlatList 
-            style={{ marginTop: 30 }}
-                    data={projects}
-            keyExtractor={project => project.id}
-            renderItem={({ item: project }) => (
+              <FlatList 
+                  style={{ marginTop: 30 }}
+                          data={projects}
+                  keyExtractor={project => project.id}
+                  renderItem={({ item: project }) => (
 
-              <View style={styles.item}>
-                 <Text style={styles.project}>
-                    {project.title}
-                 </Text>            
-              </View>
-            
-            )}
-        />
+                    <View style={styles.item}>
+                      <Text key={project.id} style={styles.project}>
+                          {project.title}
+                      </Text>            
+                    </View>
+                  
+                  )}
+              />
 
-
+              <TouchableOpacity 
+                    activeOpacity={0.2} 
+                    style={styles.button}
+                    onPress={handleAddProject}
+              >
+                <Text style={styles.butttonText}>Add Project</Text>
+              </TouchableOpacity>
 
 
 
         </SafeAreaView>
 
-        {/* <View style={styles.container}>
-          
-          {projects.map(project => (
-              <Text style={styles.project} 
-                  key={project.id}>
-                  {project.title}
-              </Text>))}
-
-        </View> */}
     </>
   );
 }
@@ -88,9 +98,20 @@ const styles = StyleSheet.create({
   statusbar:{
     backgroundColor: '#7159C1',
     color: '#7159C1'
+  },
+
+  button: {
+    backgroundColor: '#FFF',
+    margin: 20,
+    height: 50,
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  butttonText:{
+    fontWeight: 'bold',
+    fontSize: 16,
+
   }
-
-
-
-
 })
